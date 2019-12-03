@@ -1,0 +1,210 @@
+document de conception
+
+/* <dictionnaire de données>
+client( id, nom)
+location( date, catégorie, véhicule demandé, options demandées, agence départ, agence arrivée, date heure début, date heure fin, état de la demande)
+catégorie ( id , nom)
+option (id, type, tarif)
+	agence ( id, nom, ville, département)
+	véhicule (id, référance, site)
+	
+	gestionnaire (id, nom)
+	posséder (véhicule agence)
+	
+
+	
+disponibilité	
+
+
+
+type réservation (téléphone, internet, en agence)
+
+affectation (location, véhicule, client)
+
+appartenir (catégorie, véhicule)
+
+*/ </dictionnaire de données>
+
+<mcd>
+
+	<entités>
+		client
+			id
+			nom
+			adresse
+			mail
+			username
+			passw
+
+		agence
+			id
+			nom
+			département
+			
+		Véhicule
+			id
+			référence	
+							
+			
+		gestionnaire
+			id
+			nom
+			Profil
+			username
+			passw
+								
+		département
+			id
+			code
+			nom
+			
+		location
+			id
+			date											
+			date heure début
+			date heure fin			
+			statut			
+			type réservation
+								
+		Option
+			id
+			type
+			tarif
+			
+		Catégorie
+			id
+			type
+					
+		plage horaire
+			id 
+			duree min
+			duree max
+	
+		</entités>
+		
+		<association>
+		
+		traiter(date_maj)
+			gestionnaire 0,N
+			location 1,1
+			
+		affecter
+			véhicule 0,N
+			client 0,N
+			location 1,1
+			
+		disposer
+			véhicule 1,1
+			agence 1,n
+			
+		équiper
+			location 0,n
+			option 0,n
+			
+		rattacher
+			gestionnaire 1,1
+			agence 1,n
+			
+		appartenir
+			vehicule 1, 1
+		 	catégorie 1,N
+		
+		Associer depart
+			agence 1 , N
+			location 1,1	
+		
+		Associer arrive
+			agence 1 , N
+			location 1,1
+
+		Localiser
+			agence 1,1
+			département 0,n
+		
+		definir(tarif)
+			plage horaire 1,N
+			categorie 1, N
+		
+		localiser vehicule
+			vehicule 1,1
+			agence 1,N
+			
+			
+	</association
+</mcd>
+
+<mld>
+
+	agence
+		age_id int autoincriment (pk)
+		age_nom varchar 
+		age_département  varchar (fk)
+		
+	departement(id, nom)
+		dep_id int
+		dep_code int
+		dep_nom varchar
+	
+	véhicule 
+		ve_id int 
+    	ve_immatriculation(ref) varchar(10)
+    	ve_modele varchar(20)
+		ve_site int (FK)
+		ve_agence int (FK) 
+		ve_categorie int (FK)
+	
+	client
+		cl_id int (PK)
+		cl_nom varchar(50)
+		cl_adresse varchar(255)
+        cl_mail varchar(50)
+        cl_username varchar(50)
+        cl_passw varchar(50)
+        
+    categorie
+	   cat_id int 
+	   	cat_nom varchar(20)
+       	
+	option
+	   	opt_id int 
+	   	opt_nom varchar(20)
+	   	opt_tarif float 
+	
+	location 
+		loc_id int 
+		loc_type varchar (20)
+		loc_date_demande datetime
+		loc_date_maj datetime
+    	loc_statut varchar(20)
+		loc_date_heure_debut datetime
+		loc_date_heure_fin datetime 
+		loc_gestionaire int (FK)
+		loc_agence_depart int (FK)
+		loc_agence_arrivee int (FK)
+		loc_client int (FK)
+		loc_vehicule int (FK)
+		
+    equiper
+        equ_id int (PK)
+        eq_location (FK)
+        equ_option (FK)
+	      
+    gestionnaire 
+    	ges_id int (PK)
+		ges_nom varchar(20)
+		ges_profil varchar	
+		ges_agence int (fk)
+	
+	plage horaire
+		pla_id (PK)
+		pla_heure min
+		pla_heure max
+
+	definir
+		def_id (PK)
+		def_tarif
+		def_plage horaire (FK)
+		def_categorie (FK)
+		
+    
+</mld>

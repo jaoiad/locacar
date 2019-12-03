@@ -1,0 +1,17 @@
+$chaine="Renault, Peugeot, Citroën, volkswagen, Mercedes, Audi, Škoda, SEAT, BMW, Mazda, Kia";
+        $modele=explode(",",$chaine);        
+        echo "<h1>Création des véhicules</h1>";
+        $sql = "insert into vehicule values ";
+        
+		  
+        $data=[];       
+		$categorie=rand(1,6);
+		$agence=rand(2,21);
+          for ($i = 2; $i <= $nbagence; $i++) {			
+			$ve_site=2;
+		  for($j=1; $j<=10; $j++) {
+         $ve_immatriculation=strtoupper($faker->bothify('???##').$i);
+			  $ve_modele=shuffle($modele);
+							}
+							$data[] = "(null,'$ve_immatriculation','$ve_modele[0]','$ve_site', '$ve_agence', '$ve_categorie')";
+              }
